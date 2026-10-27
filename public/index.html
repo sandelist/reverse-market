@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f7f1" />
+  <meta name="description" content="反向股市報道：用長期買家的角度，重新理解過去六個月的股價變化。" />
+  <title>逆市報｜跌得開心，買得明白</title>
+  <style>
+    :root { --ink:#142b24; --muted:#6b776f; --soft:#f7f7f1; --line:#dfe4da; --green:#087c62; --good:#16775d; --bad:#b54f4e; --palegreen:#e4f4e9; --palepink:#f9e9e4; --white:#fff; --hero:#152c25; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--soft);-webkit-font-smoothing:antialiased}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,input:focus-visible{outline:3px solid #78bbab;outline-offset:3px}
+    .shell{max-width:1232px;margin:auto;padding:0 32px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;min-height:94px;border-bottom:1px solid var(--line);gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+    .brandmark{background:var(--ink);color:#c4f6a4;border-radius:12px;width:42px;height:42px;display:grid;place-items:center;font-size:29px;line-height:1}
+    .brand-cn{font-size:21px;font-weight:860;letter-spacing:.06em}
+    .brand-en{color:var(--muted);font-size:10px;letter-spacing:.14em;margin-top:2px;font-weight:760}
+    .top-right{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:#52a489;display:inline-block;margin-right:6px;box-shadow:0 0 0 4px #e4f0e8}
+    .tiny-pill{border:1px solid #d9e2d8;border-radius:100px;padding:9px 13px;background:#fff}
+    .hero{padding:67px 0 57px;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:64px}
+    .eyebrow{display:flex;gap:11px;align-items:center;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.16em}
+    .eyebrow:before{content:"";display:block;width:25px;height:2px;background:var(--green)}
+    h1{font-size:clamp(54px,6.4vw,92px);line-height:1.09;letter-spacing:-.073em;margin:22px 0 26px;font-weight:890}
+    .hero h1 em{font-style:normal;color:var(--green)}
+    .hero-sub{font-size:16px;line-height:1.95;color:#596d61;max-width:520px;margin:0}
+    .hero-card{background:var(--hero);border-radius:27px;min-height:304px;padding:35px 37px;color:white;position:relative;overflow:hidden;box-shadow:0 14px 46px #12332515}
+    .hero-card:before{content:"";position:absolute;right:-106px;top:-131px;width:325px;height:325px;border:1px solid #53665d;border-radius:50%}
+    .hero-card:after{content:"";position:absolute;right:-64px;top:-100px;width:235px;height:235px;border:1px solid #53665d;border-radius:50%}
+    .feature-tag{font-size:12px;color:#a9c1af;letter-spacing:.12em;font-weight:850;display:flex;align-items:center;gap:10px}
+    .feature-tag span{font-size:17px}
+    .feature-title{font-size:clamp(25px,2.8vw,37px);letter-spacing:-.045em;line-height:1.45;font-weight:800;max-width:400px;margin:26px 0 20px;position:relative;z-index:1}
+    .feature-title strong{color:#d4fa95}
+    .feature-bottom{font-size:13px;line-height:1.8;color:#b6c9bf;max-width:370px;position:relative;z-index:1}
+    .slanted{display:inline-block;transform:rotate(-45deg);font-size:17px}
+    .search-wrap{background:white;border:1px solid var(--line);border-radius:23px;padding:27px 30px;box-shadow:0 9px 28px #14352b08}
+    .search-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-end;margin-bottom:18px}
+    .field-title{font-size:16px;font-weight:850}
+    .field-desc{font-size:13px;color:var(--muted)}
+    .search-row{display:flex;gap:10px}
+    .search-box{display:flex;align-items:center;gap:12px;flex:1;border:1px solid #d4dfd6;border-radius:13px;padding:0 17px;min-width:0;background:#fbfcf9}
+    .search-box svg{flex:none;color:#7d9386}
+    .search-box input{width:100%;height:55px;border:none;outline:none;background:transparent;color:var(--ink);font-size:16px;font-weight:800;text-transform:uppercase;min-width:0}
+    .search-box input::placeholder{text-transform:none;font-weight:450;color:#98a49b}
+    .submit{border:0;border-radius:13px;background:var(--ink);color:white;padding:0 24px;font-size:15px;font-weight:800;white-space:nowrap}
+    .submit:hover{background:#275743}
+    .search-lower{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px;color:var(--muted);font-size:12px}
+    .chip{border:1px solid #dce5dc;background:#f7faf5;border-radius:30px;padding:7px 13px;color:#425f4d;font-size:12px;font-weight:750}
+    .chip:hover,.chip.active{border-color:#9ac5b6;background:#e4f1e8;color:var(--green)}
+    .results{padding:40px 0 65px}
+    .results-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .section-label{font-size:12px;letter-spacing:.16em;color:var(--green);font-weight:880;margin:0 0 10px}
+    .results h2{font-size:30px;line-height:1.2;letter-spacing:-.04em;margin:0}
+    .results-sub{margin:11px 0 0;color:var(--muted);font-size:13px}
+    .source-badge{font-size:12px;color:#5e7468;align-self:center;background:#eaf0e9;border-radius:20px;padding:10px 13px}
+    .demo-banner{display:none;background:#fff0d3;border:1px solid #f1d69a;color:#725418;padding:13px 17px;border-radius:12px;font-size:13px;margin-bottom:19px}
+    .demo-banner.show{display:block}
+    .error-banner{display:none;background:#fff0eb;border:1px solid #eecbbd;color:#8b453a;padding:18px;border-radius:12px;font-size:14px;line-height:1.8;margin-bottom:19px}
+    .error-banner.show{display:block}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
+    .metric{border:1px solid var(--line);border-radius:17px;background:#fff;min-height:130px;padding:22px 21px}
+    .metric-key{font-size:12px;color:var(--muted);font-weight:680}
+    .metric-num{font-size:clamp(22px,2.5vw,32px);font-weight:900;letter-spacing:-.055em;margin:13px 0 7px;white-space:nowrap}
+    .metric-foot{font-size:12px;color:#77867d}
+    .good{color:var(--good)}.bad{color:var(--bad)}
+    .chart-card{border:1px solid var(--line);background:#fff;border-radius:21px;padding:27px 28px 20px;box-shadow:0 8px 25px #14352b06}
+    .chart-header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+    .chart-title{margin:0;font-size:21px;font-weight:880;letter-spacing:-.025em}
+    .chart-info{font-size:12px;color:var(--muted);line-height:1.7;margin:8px 0 0}
+    .segmented{display:flex;background:#f0f3ec;border-radius:11px;padding:4px;gap:2px;flex:none}
+    .segmented button{font-size:12px;font-weight:800;padding:10px 12px;border:0;background:transparent;color:#718275;border-radius:8px;white-space:nowrap}
+    .segmented button.selected{background:white;color:var(--ink);box-shadow:0 1px 5px #1c33261a}
+    .chart-container{position:relative;margin-top:25px;min-height:316px}
+    .chart-container svg{width:100%;display:block;overflow:visible;touch-action:pan-y}
+    .hover-tip{position:absolute;z-index:3;pointer-events:none;top:0;left:0;background:var(--ink);color:white;border-radius:10px;padding:12px 15px;font-size:12px;line-height:1.75;box-shadow:0 7px 25px #0d251c29;white-space:nowrap;display:none}
+    .chart-description{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;padding:18px 3px 0;border-top:1px solid #edf0eb;color:var(--muted);font-size:12px;line-height:1.75}
+    .chart-description b{color:#43584c}
+    .stories-top{margin:58px 0 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+    .stories-top h2{font-size:29px}
+    .stories-label{font-size:12px;color:var(--muted)}
+    .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .news{background:#fff;border:1px solid var(--line);border-radius:17px;padding:25px;min-height:218px;display:flex;flex-direction:column;align-items:flex-start}
+    .news-tag{font-size:11px;border-radius:6px;padding:6px 9px;font-weight:840;background:var(--palegreen);color:var(--good)}
+    .news-tag.bad{background:var(--palepink);color:var(--bad)}
+    .news h3{font-size:18px;line-height:1.5;letter-spacing:-.035em;margin:18px 0 10px}
+    .news p{font-size:12px;line-height:1.8;color:#728379;margin:auto 0 0}
+    .method{margin-top:44px;border-radius:22px;padding:32px 36px;background:#e9efe6;border:1px solid #d7e1d5;display:grid;grid-template-columns:1fr 1.12fr;gap:36px}
+    .method h2{font-size:23px;margin:0 0 13px;letter-spacing:-.03em}
+    .method p{font-size:13px;line-height:1.95;color:#66796c;margin:0}
+    .formula{background:#fff;border-radius:15px;padding:22px 24px;display:flex;flex-direction:column;justify-content:center;gap:11px}
+    .formula small{font-size:12px;color:#66776b;font-weight:700}
+    .formula strong{font-size:22px;letter-spacing:-.035em}
+    .formula span{color:#77867d;font-size:12px;line-height:1.7}
+    footer{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:25px 0 45px;color:#87958b;font-size:12px;border-top:1px solid var(--line);line-height:1.7}
+    .skeleton{background:linear-gradient(90deg,#edf1ec 23%,#f8faf6 45%,#edf1ec 70%);background-size:200% 100%;animation:shimmer 1.25s ease-in-out infinite;border-radius:8px;color:transparent!important}
+    @keyframes shimmer{to{background-position:-200% 0}}
+    @media(max-width:1000px){.hero{gap:24px}.metrics{grid-template-columns:repeat(2,1fr)}.news-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.shell{padding:0 18px}.topbar{min-height:76px}.tiny-pill{display:none}.hero{padding:48px 0 32px;grid-template-columns:1fr;gap:28px}.hero h1{font-size:65px}.hero-card{min-height:258px;padding:28px}.feature-title{font-size:29px}.search-wrap{padding:21px}.search-top{align-items:flex-start;flex-direction:column;gap:7px}.search-row{gap:8px}.submit{padding:0 17px}.search-box input{font-size:14px}.results{padding:38px 0 50px}.results-heading{align-items:flex-start;flex-direction:column}.metrics{gap:9px}.metric{padding:18px 15px;min-height:118px}.metric-num{font-size:26px}.chart-card{padding:21px 14px}.chart-header{flex-direction:column}.chart-container{margin-top:12px;min-height:0}.chart-description{flex-direction:column;gap:4px;padding-top:12px}.news-grid{grid-template-columns:1fr}.news{min-height:170px}.stories-top{margin-top:44px}.method{grid-template-columns:1fr;gap:20px;padding:25px 22px}.formula strong{font-size:19px}.brand-cn{font-size:19px}.top-right{font-size:11px}footer{flex-direction:column;align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.skeleton{animation:none}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="逆市報 首頁">
+        <span class="brandmark" aria-hidden="true">↘</span>
+        <span><span class="brand-cn">逆市報</span><div class="brand-en">THE REVERSE MARKET</div></span>
+      </a>
+      <div class="top-right"><span><span class="live-dot"></span>每日收市行情</span><span class="tiny-pill">長期買家的另一種視角</span></div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="headline">
+        <div>
+          <div class="eyebrow">PRICE DOWN. MOOD UP.</div>
+          <h1 id="headline">跌得開心，<br><em>買得明白。</em></h1>
+          <p class="hero-sub">股市升，人們說是好消息。可是對還在持續買股票的人來說，股價下跌，或許才是減價的開始。用另一個角度，重新看待過去六個月的市場。</p>
+        </div>
+        <aside class="hero-card" aria-label="今日的反向財經頭條">
+          <div class="feature-tag"><span aria-hidden="true">✳</span> 今日的另類頭條</div>
+          <div class="feature-title" id="feature-title">股價下跌時，<br><strong>你能用同樣的錢，買入更多。</strong></div>
+          <div class="feature-bottom" id="feature-bottom">我們不改動股價，只改變觀察角度：以長期買家的成本，而不是持有人的短期盈虧作起點。</div>
+        </aside>
+      </section>
+
+      <section class="search-wrap" aria-label="搜尋股票">
+        <div class="search-top"><div class="field-title">你想看哪一隻股票的「反向新聞」？</div><div class="field-desc">輸入美股、ETF 或交易所股票代號</div></div>
+        <form class="search-row" id="search-form">
+          <label class="search-box">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.4-4.4"/></svg>
+            <input id="ticker-input" aria-label="股票代號" value="QQQ" maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="例如：QQQ、NVDA、0700.HK" required />
+          </label>
+          <button class="submit" id="submit" type="submit">反向看股市 ↗</button>
+        </form>
+        <div class="search-lower"><span>熱門代號</span><button class="chip" data-ticker="QQQ">QQQ</button><button class="chip" data-ticker="NVDA">NVDA</button><button class="chip" data-ticker="AAPL">AAPL</button><button class="chip" data-ticker="MU">MU</button><button class="chip" data-ticker="SPY">SPY</button><button class="chip" data-ticker="0700.HK">0700.HK</button></div>
+      </section>
+
+      <section class="results" id="results" aria-live="polite">
+        <div class="results-heading">
+          <div><p class="section-label">SIX MONTHS, ANOTHER PERSPECTIVE</p><h2><span id="symbol-title">QQQ</span> · 過去六個月</h2><p class="results-sub" id="period-label">等待載入行情...</p></div>
+          <div class="source-badge" id="source-label">資料載入中</div>
+        </div>
+        <div id="demo-banner" class="demo-banner" role="status">示範模式：以下為程式產生的模擬數據，並非真實股價。移除網址中的 ?demo=1 可嘗試讀取真實歷史收市價。</div>
+        <div id="error-banner" class="error-banner" role="alert"></div>
+        <div class="metrics">
+          <article class="metric"><div class="metric-key">六個月內的價格變化</div><div class="metric-num" id="metric-price-change">—</div><div class="metric-foot" id="metric-price-foot">與期初比較</div></article>
+          <article class="metric"><div class="metric-key">同額購股能力變化</div><div class="metric-num" id="metric-buying-power">—</div><div class="metric-foot">同一筆錢可買的股份變化</div></article>
+          <article class="metric"><div class="metric-key">最新收市價</div><div class="metric-num" id="metric-last-close">—</div><div class="metric-foot" id="metric-last-date">最新交易日</div></article>
+          <article class="metric"><div class="metric-key">距六個月高位的折扣</div><div class="metric-num" id="metric-discount">—</div><div class="metric-foot">按六個月收市價最高位計算</div></article>
+        </div>
+        <article class="chart-card">
+          <div class="chart-header">
+            <div><h3 class="chart-title" id="chart-title">同額購股能力走勢</h3><p class="chart-info" id="chart-info">起點設為100；線愈向上，代表同樣的錢可買更多股份。</p></div>
+            <div class="segmented" role="group" aria-label="切換圖表視角"><button type="button" class="selected" data-mode="reverse" aria-pressed="true">↘ 反向視角</button><button type="button" data-mode="normal" aria-pressed="false">正常股價</button></div>
+          </div>
+          <div class="chart-container" id="chart-container"><svg id="chart-svg" viewBox="0 0 800 320" role="img" aria-label="過去六個月的股票走勢折線圖"><title>六個月走勢圖</title></svg><div id="hover-tip" class="hover-tip"></div></div>
+          <div class="chart-description"><div><b>小提示：</b><span id="legend-explanation">反向視角顯示的是購股能力指數，而非虛構的反向股價。</span></div><div id="price-source-note">收市價；不包括交易成本及股息</div></div>
+        </article>
+        <div class="stories-top"><div><p class="section-label">THE REVERSE HEADLINES</p><h2>今天，換個角度讀財經。</h2></div><div class="stories-label">依實際歷史數據自動產生標題</div></div>
+        <div class="news-grid" id="news-grid"><article class="news"><span class="news-tag">正在生成</span><h3>反向股市新聞</h3><p>請先載入股票數據。</p></article></div>
+        <section class="method" aria-labelledby="method-title"><div><p class="section-label">HOW IT WORKS</p><h2 id="method-title">改變觀點，不改動事實。</h2><p>我們將六個月期初的購股能力設定為 100。當股價下跌，同樣預算買到的股份就會增加，因此指數向上。反向報道只是觀察角度，並不代表每次下跌都是值得買入的機會：公司的基本面、估值和投資風險仍然重要。</p></div><div class="formula"><small>同額購股能力指數</small><strong>100 × 期初股價 ÷ 當日股價</strong><span>例如，股價從 100 元跌至 80 元，購股能力指數便由 100 升至 125（可買多 25% 股份）。這不代表股價真的上漲 25%。</span></div></section>
+      </section>
+    </main>
+    <footer><div>© 逆市報 Reverse Market · 為長期投資者設計的一個視角實驗</div><div>僅供資訊與教育用途 · 非投資建議 · 不含股息及交易成本</div></footer>
+  </div>
+  <script type="module">
+    const $ = id => document.getElementById(id);
+    let activeData = null;
+    let activeMode = 'reverse';
+    let activeSymbol = 'QQQ';
+    const isDemo = new URLSearchParams(location.search).get('demo') === '1';
+    const isStandalone = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname.endsWith('github.io') || location.hostname.endsWith('pages.dev');
+    const palette = {good:'#087c62', bad:'#bb6258', line:'#e9eeea', muted:'#75857a', ink:'#152c25'};
+    const dec = (n, digits=2) => Number(n).toLocaleString('en-US', {minimumFractionDigits:digits, maximumFractionDigits:digits});
+    const pct = (n, digits=1) => `${Math.abs(n).toFixed(digits)}%`;
+    const signed = (n, digits=1) => `${n >= 0 ? '+' : '−'}${Math.abs(n).toFixed(digits)}%`;
+    const fmtDate = date => date.replaceAll('-', '/');
+    const price = (n, currency) => `${currency || ''} ${dec(n)}`;
+    const axisDate = date => {const [y,m,d]=date.split('-');return `${Number(m)}月${Number(d)}日`};
+    const ns='http://www.w3.org/2000/svg';
+    function svgEl(tag, attrs={}, content) {const e=document.createElementNS(ns,tag);for (const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(content!=null)e.textContent=content;return e;}
+    function setText(id,s) {$(id).textContent=s;}
+
+    // Demo values are intentionally synthetic and always visibly marked as such.
+    function demoData(symbol) {
+      const start = new Date(); start.setMonth(start.getMonth()-6);
+      const points=[];let k=0;const seed=[...symbol].reduce((n,c)=>n+c.charCodeAt(0),0);let value=100 + seed%27;
+      for(let d=new Date(start);d <= new Date();d.setDate(d.getDate()+1)){
+        const day=d.getDay();if(day===0||day===6)continue;
+        const change = Math.sin(k*.37+seed*.027)*.014 + Math.cos(k*.13+seed*.009)*.007 + ((seed%9)-5)*.00045;
+        value=Math.max(25,value*(1+change));
+        points.push({date:d.toISOString().slice(0,10),close:Math.round(value*100)/100}); k++;
+      }
+      return {symbol,currency:'USD',source:'模擬數據（非真實行情）',exchange:'DEMO',priceType:'示範用模擬收市價',points};
+    }
+    // Standalone preview: Yahoo Chart prices via a public CORS proxy. Never fake a response if the proxy fails.
+    // An independent public proxy can stop working; for a stable production site deploy the included Worker.
+    async function historyFromPublicProxy(symbol) {
+      const yahoo = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=6mo&interval=1d`;
+      const proxyUrl = `https://proxy.cors.dev/${yahoo}`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 14000);
+      let response;
+      try {
+        response = await fetch(proxyUrl, {signal: controller.signal, credentials:'omit'});
+      } catch (e) {
+        throw new Error('無法連接行情轉接服務。請檢查網絡或使用已部署的正式網站；示範數據不會冒充真實數據。');
+      } finally { clearTimeout(timeout); }
+      if (!response.ok) throw new Error(`行情服務暫時拒絕連線（HTTP ${response.status}）。可稍後重試或部署正式版本。`);
+      const payload = await response.json().catch(() => {throw new Error('行情服務返回無效資料。')});
+      const chart = payload?.chart?.result?.[0];
+      if (!chart?.timestamp?.length) throw new Error(payload?.chart?.error?.description || '找不到此股票的歷史行情。');
+      const close = chart.indicators?.quote?.[0]?.close ?? [];
+      const points = chart.timestamp.map((seconds, i) => ({
+        date: new Date(seconds * 1000).toISOString().slice(0,10), close: Number(close[i])
+      })).filter(p => Number.isFinite(p.close) && p.close > 0).sort((a,b) => a.date.localeCompare(b.date));
+      if (points.length < 2) throw new Error('歷史行情不足，無法繪製六個月走勢。');
+      return {symbol:chart.meta?.symbol || symbol, currency:chart.meta?.currency || 'USD',
+        exchange:chart.meta?.exchangeName || '',source:'Yahoo Finance（公開代理轉接，非官方）',
+        priceType:'原始收市價（可能未經拆股調整）',points};
+    }
+    function setLoading(loading){$('submit').disabled=loading;$('submit').textContent=loading?'正在讀取…':'反向看股市 ↗';}
+    async function loadSymbol(symbol) {
+      symbol=String(symbol).trim().toUpperCase();
+      if(!/^[A-Z0-9^._=-]{1,20}$/.test(symbol)){showError('請輸入有效的股票代號，例如 QQQ、AAPL、MU、0700.HK。');return;}
+      activeSymbol=symbol;$('ticker-input').value=symbol;setText('symbol-title',symbol);
+      document.querySelectorAll('.chip').forEach(btn=>btn.classList.toggle('active',btn.dataset.ticker===symbol));
+      $('error-banner').classList.remove('show');$('demo-banner').classList.toggle('show',isDemo);setLoading(true);
+      try{
+        let result;
+        if(isDemo) result=demoData(symbol);
+        else if (isStandalone) result = await historyFromPublicProxy(symbol);
+        else {
+          // Use the secure Worker API when available. A standalone file preview or static host
+          // does not provide /api/history; fall back to the browser CORS proxy.
+          try {
+            const response=await fetch(`/api/history?symbol=${encodeURIComponent(symbol)}`);
+            const json=await response.json().catch(()=>null);
+            if(!response.ok || !json || !Array.isArray(json.points)) throw new Error(json?.error || '網站尚未設定行情 API');
+            result=json;
+          } catch (_apiUnavailable) {
+            result=await historyFromPublicProxy(symbol);
+          }
+        }
+        if(!Array.isArray(result.points)||result.points.length<2)throw new Error('目前沒有足夠資料繪製六個月走勢。');
+        activeData=result;
+        renderAll();
+      } catch(err){
+        activeData=null;showError(err.message || '載入數據失敗。');
+        setText('period-label','行情未能載入');setText('source-label','未取得行情');
+        ['metric-price-change','metric-buying-power','metric-last-close','metric-discount'].forEach(id=>setText(id,'—'));
+        $('chart-svg').replaceChildren();$('news-grid').replaceChildren();
+        setText('feature-title','資料暫時無法載入，請稍後再試。');
+        setText('feature-bottom','請檢查網絡或重試。若要測試介面，可在網址後加上 ?demo=1；示範數據會明確標示。');
+      } finally {setLoading(false);}
+    }
+    function showError(message){$('error-banner').textContent=message;$('error-banner').classList.add('show');}
+    function renderAll(){
+      if(!activeData)return;
+      const {points,currency,symbol,source,priceType}=activeData;
+      const first=points[0].close,last=points.at(-1).close,high=Math.max(...points.map(x=>x.close));
+      const ret=(last/first-1)*100,buy=(first/last-1)*100,discount=(1-last/high)*100;
+      const good=ret<0;
+      setText('symbol-title',symbol);setText('period-label',`${fmtDate(points[0].date)} — ${fmtDate(points.at(-1).date)} · ${points.length} 個交易日（收市價）`);
+      setText('source-label',`資料來源：${source}`);
+      setText('price-source-note',`${priceType || '收市價'}；不含交易費用`);
+      setText('metric-price-change',`${ret<0?'減價':'加價'} ${pct(ret)}`);
+      $('metric-price-change').className=`metric-num ${good?'good':'bad'}`;
+      setText('metric-price-foot',`期初 ${price(first,currency)} → 期末 ${price(last,currency)}`);
+      setText('metric-buying-power',signed(buy));
+      $('metric-buying-power').className=`metric-num ${buy>=0?'good':'bad'}`;
+      setText('metric-last-close',price(last,currency));
+      setText('metric-last-date',`${fmtDate(points.at(-1).date)} 收市`);
+      setText('metric-discount',`${pct(discount)} OFF`);
+      $('metric-discount').className=`metric-num ${discount>0?'good':''}`;
+      if(ret<-.05){setText('feature-title',`${symbol} 六個月減價 ${pct(ret)}！`);setText('feature-bottom',`對持續買入的投資者而言，同樣預算現在可買多 ${pct(buy)} 的股份。惟股價下跌不代表一定便宜。`)}
+      else if(ret>.05){setText('feature-title',`${symbol} 六個月加價 ${pct(ret)}。`);setText('feature-bottom',`對未來買家而言，同樣預算現在只能買少 ${pct(buy)} 的股份。價格上漲令入場成本增加。`)}
+      else {setText('feature-title',`${symbol} 六個月價格大致持平。`);setText('feature-bottom','購股能力變化不大，但仍應關注企業基本面和風險。')}
+      renderChart();renderStories();
+    }
+    function seriesValue(p,first){return activeMode==='reverse'?100*first/p.close:p.close}
+    function renderChart(){
+      if(!activeData)return;
+      const svg=$('chart-svg');svg.replaceChildren();
+      const points=activeData.points,first=points[0].close,values=points.map(p=>seriesValue(p,first));
+      const min=Math.min(...values),max=Math.max(...values),pad=Math.max((max-min)*.15,Math.abs(max)*.012,.2);
+      const bottomVal=min-pad,topVal=max+pad;
+      const compact = window.innerWidth < 700;
+      const W=compact?480:800,H=320, left=compact?62:64,right=20,top=14,bottom=278;
+      svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+      const x=i=>left+(W-left-right)*i/(values.length-1);
+      const y=v=>top+(topVal-v)/(topVal-bottomVal)*(bottom-top);
+      const underlyingChange=points.at(-1).close-points[0].close;const c=underlyingChange<=0?palette.good:palette.bad;
+      svg.append(svgEl('title',{},activeMode==='reverse'?'購股能力指數，向上代表股價下跌':'真實收市價走勢'));
+      for(let t=0;t<=4;t++){
+        const val=topVal-(topVal-bottomVal)*t/4;
+        const yy=y(val);
+        svg.append(svgEl('line',{x1:left,y1:yy,x2:W-right,y2:yy,stroke:palette.line,'stroke-width':1}));
+        svg.append(svgEl('text',{x:left-11,y:yy+4,'text-anchor':'end','font-size':12,fill:palette.muted},activeMode==='reverse'?dec(val,0):dec(val,val>=100?0:2)));
+      }
+      for(const k of [0,.25,.5,.75,1]){
+        const index=Math.round(k*(points.length-1)),xx=x(index);
+        svg.append(svgEl('text',{x:xx,y:308,'text-anchor':k===0?'start':k===1?'end':'middle','font-size':12,fill:palette.muted},axisDate(points[index].date)));
+      }
+      const path=values.map((val,i)=>`${i===0?'M':'L'}${x(i).toFixed(2)} ${y(val).toFixed(2)}`).join(' ');
+      const area=`${path} L${x(values.length-1)} ${bottom} L${x(0)} ${bottom} Z`;
+      const defs=svgEl('defs');const grad=svgEl('linearGradient',{id:'fill-gradient',x1:'0',x2:'0',y1:'0',y2:'1'});
+      grad.append(svgEl('stop',{offset:'0%','stop-color':c,'stop-opacity':'.19'}),svgEl('stop',{offset:'100%','stop-color':c,'stop-opacity':'0'}));defs.append(grad);svg.append(defs);
+      svg.append(svgEl('path',{d:area,fill:'url(#fill-gradient)'}));
+      svg.append(svgEl('path',{d:path,fill:'none',stroke:c,'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'}));
+      svg.append(svgEl('circle',{cx:x(values.length-1),cy:y(values.at(-1)),r:5,fill:c,stroke:'white','stroke-width':2.5}));
+      const hover=svgEl('g',{visibility:'hidden'});
+      const cross=svgEl('line',{x1:0,y1:top,x2:0,y2:bottom,stroke:'#9daea2','stroke-width':1.4,'stroke-dasharray':'4 4'});
+      const marker=svgEl('circle',{cx:0,cy:0,r:5,fill:c,stroke:'#fff','stroke-width':2});
+      hover.append(cross,marker);svg.append(hover);
+      const overlay=svgEl('rect',{x:left,y:top,width:W-left-right,height:bottom-top,fill:'transparent'});svg.append(overlay);
+      const tooltip=$('hover-tip');
+      overlay.addEventListener('pointermove',e=>{
+        const rect=svg.getBoundingClientRect(),px=(e.clientX-rect.left)/rect.width*W;
+        const i=Math.max(0,Math.min(points.length-1,Math.round((px-left)/(W-left-right)*(points.length-1))));
+        const xx=x(i),yy=y(values[i]);cross.setAttribute('x1',xx);cross.setAttribute('x2',xx);
+        marker.setAttribute('cx',xx);marker.setAttribute('cy',yy);hover.setAttribute('visibility','visible');
+        tooltip.replaceChildren();
+        const a=document.createElement('div');a.textContent=fmtDate(points[i].date);a.style.color='#d8ecdc';
+        const b=document.createElement('div');b.textContent=`收市價：${price(points[i].close,activeData.currency)}`;
+        const d=document.createElement('div');d.textContent=`購股能力指數：${dec(100*first/points[i].close,1)}`;
+        tooltip.append(a,b,d);
+        tooltip.style.display='block';
+        const leftPx=xx/W*rect.width;
+        tooltip.style.left=`${Math.min(Math.max(leftPx-tooltip.offsetWidth/2,0),rect.width-tooltip.offsetWidth)}px`;
+        tooltip.style.top=`${Math.max(0,yy/H*rect.height-tooltip.offsetHeight-11)}px`;
+      });
+      const hide=()=>{hover.setAttribute('visibility','hidden');tooltip.style.display='none'};
+      overlay.addEventListener('pointerleave',hide);overlay.addEventListener('pointercancel',hide);
+      setText('chart-title',activeMode==='reverse'?'同額購股能力走勢':'原始收市價走勢');
+      setText('chart-info',activeMode==='reverse'?'起點設為100；線愈向上，代表同樣的錢可買更多股份。':'顯示原始收市價；線愈向上，代表價格愈高。');
+      setText('legend-explanation',activeMode==='reverse'?'反向視角顯示的是購股能力指數，而非虛構的反向股價。':'正常視角顯示每日真實收市價，方便對照反向走勢。');
+      document.querySelectorAll('[data-mode]').forEach(b=>{const selected=b.dataset.mode===activeMode;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected))});
+    }
+    function renderStories(){
+      const {points,symbol,currency}=activeData;
+      const first=points[0].close,last=points.at(-1).close;
+      const total=(last/first-1)*100, ability=(first/last-1)*100;
+      const moves=points.slice(1).map((p,i)=>({date:p.date,change:(p.close/points[i].close-1)*100}));
+      const lastMove=moves.at(-1),biggestDown=moves.reduce((a,b)=>a.change<b.change?a:b),biggestUp=moves.reduce((a,b)=>a.change>b.change?a:b);
+      const stories=[
+        total<0?{tag:'長線買家報',tone:'good',headline:`${symbol} 六個月減價 ${pct(total)}，同樣資金可買多 ${pct(ability)} 股份`,desc:`從 ${price(first,currency)} 降至 ${price(last,currency)}。這只是買入成本下降，不保證長期回報。`}:
+          {tag:'入場成本警報',tone:'bad',headline:`${symbol} 六個月加價 ${pct(total)}，新買家預算購買力下降`,desc:`從 ${price(first,currency)} 升至 ${price(last,currency)}；同樣資金可買的股份減少 ${pct(ability)}。`},
+        lastMove.change<0?{tag:'最新減價消息',tone:'good',headline:`最新交易日減價 ${pct(lastMove.change)}，買一股所需資金降低`,desc:`${fmtDate(lastMove.date)} 收市較上一交易日下跌。跌幅反映價格變動，並不保證股價已見底。`}:
+          {tag:'最新加價消息',tone:'bad',headline:`最新交易日加價 ${pct(lastMove.change)}，新買家成本再次上升`,desc:`${fmtDate(lastMove.date)} 收市較上一交易日上升。對已持有股票的人，這可能是好消息。`},
+        {tag:'六個月減價之最',tone:'good',headline:`單日最大減幅 ${pct(biggestDown.change)}，出現在 ${axisDate(biggestDown.date)}`,desc:`回看過去六個月，這一天的收市價相對上一交易日跌幅最大。最大單日升幅則為 ${pct(biggestUp.change)}。`}
+      ];
+      $('news-grid').replaceChildren();
+      for(const s of stories){const article=document.createElement('article');article.className='news';
+        const badge=document.createElement('span');badge.className=`news-tag ${s.tone==='bad'?'bad':''}`;badge.textContent=s.tag;
+        const h=document.createElement('h3');h.textContent=s.headline;
+        const p=document.createElement('p');p.textContent=s.desc;
+        article.append(badge,h,p);$('news-grid').append(article);
+      }
+    }
+    $('search-form').addEventListener('submit',e=>{e.preventDefault();loadSymbol($('ticker-input').value)});
+    document.querySelectorAll('[data-ticker]').forEach(b=>b.addEventListener('click',()=>loadSymbol(b.dataset.ticker)));
+    document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{activeMode=b.dataset.mode;renderChart()}));
+    loadSymbol('QQQ');
+  </script>
+</body>
+</html>
