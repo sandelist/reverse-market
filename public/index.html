@@ -234,18 +234,27 @@
       try{
         let result;
         if(isDemo) result=demoData(symbol);
-        else if (isStandalone) result = await historyFromPublicProxy(symbol);
+        else if(isStandalone) result=await historyFromPublicProxy(symbol);
         else {
-          // Use the secure Worker API when available. A standalone file preview or static host
-          // does not provide /api/history; fall back to the browser CORS proxy.
-          try {
-            const response=await fetch(`/api/history?symbol=${encodeURIComponent(symbol)}`);
+          // Prefer the GoDaddy/PHP endpoint. Cloudflare Workers use the second endpoint.
+          // Relative paths allow deployment in a subdirectory, e.g. davis.app/stocks/.
+          let apiFound=false, apiError=null;
+          for(const endpoint of ['api/history.php','api/history']){
+            const url=new URL(endpoint,window.location.href);
+            url.searchParams.set('symbol',symbol);
+            let response;
+            try{ response=await fetch(url.toString(),{headers:{Accept:'application/json'}}); }
+            catch(e){ apiError=e;continue; }
+            if(response.status===404||response.status===405)continue;
             const json=await response.json().catch(()=>null);
-            if(!response.ok || !json || !Array.isArray(json.points)) throw new Error(json?.error || '網站尚未設定行情 API');
+            if(!json || typeof json!=='object' || (!Array.isArray(json.points) && !json.error))continue;
+            apiFound=true;
+            if(!response.ok)throw new Error(json.error || '行情服務暫時不可用');
+            if(!Array.isArray(json.points))throw new Error('行情接口沒有返回有效資料。');
             result=json;
-          } catch (_apiUnavailable) {
-            result=await historyFromPublicProxy(symbol);
+            break;
           }
+          if(!apiFound) result=await historyFromPublicProxy(symbol);
         }
         if(!Array.isArray(result.points)||result.points.length<2)throw new Error('目前沒有足夠資料繪製六個月走勢。');
         activeData=result;
