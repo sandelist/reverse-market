@@ -18,6 +18,35 @@
 
 公開第三方轉接服務會看到你查詢的股票代號及請求來源；這是簡便的個人展示模式，不建議用作需要穩定度、私隱保護或正式再分發行情的生產環境。正式公開使用建議部署 Cloudflare Worker，並考慮有正式授權的數據供應商。
 
+## 直接部署至 GoDaddy（毋須 Cloudflare）
+
+已另備 PHP 版本，適用於支援 PHP 及 cURL 的網站空間。GoDaddy Web Hosting (cPanel) 一般支援兩者。WordPress 受管託管方案也可管理檔案，但須確認能否在指定目錄執行自訂 PHP。
+
+### 使用現有 davis.app 網站空間
+
+1. 登入 GoDaddy，進入你的 **Web Hosting (cPanel) → Manage → File Manager**。如果看到的是 **Managed Hosting for WordPress**，則使用 **Settings → Tools → File Browser** 或 SFTP。
+2. 找出 **davis.app 的網站根目錄**（cPanel 常見為 `public_html`，但請以管理介面顯示的實際路徑為準）。不要覆蓋現有 WordPress 的 `index.php`、`.htaccess` 或其他檔案。
+3. 在網站根目錄新增一個 **stocks** 資料夾（例如 `public_html/stocks/`）。
+4. 從 GitHub 本專案的 `public/` 目錄，按以下結構上載**資料夾內的內容**：
+
+```text
+你的網站根目錄/
+├── （現有網站檔案，保留不變）
+└── stocks/
+    ├── index.html
+    └── api/
+        └── history.php
+```
+
+5. 打開 `https://davis.app/stocks/`。先測試 `https://davis.app/stocks/api/history.php?symbol=QQQ`：成功時應顯示 JSON，內含 `points` 歷史收市價。
+6. 如返回 404，檢查上載目錄與網址是否匹配；如返回 500 或 502，檢查主機 PHP/cURL、出站 HTTPS 連線及上游行情是否可用。
+
+前端會優先查詢 GoDaddy 的 `api/history.php`；如果此路徑不存在，會嘗試 Cloudflare Worker 的 `api/history`，最後才使用僅供展示的公開 CORS 轉接服務。**不會默默以模擬股價冒充真實價格**。模擬模式必須透過 `?demo=1` 明確啟用。
+
+可以日後另外在 GoDaddy 設定 `stocks.davis.app` 子網域，並將其網站根目錄指向同一個 `stocks` 資料夾。若已在使用 `davis.app` 主站，不要直接覆蓋主站目錄或改動 WordPress DNS 設定。
+
+**注意：** Yahoo Finance Chart 是非官方行情接口，可能限流或封鎖主機。程式已設 15 分鐘快取及失敗提示，但不能保證所有股票與時段都有可用數據。正式公開使用前應評估資料供應商的穩定性及授權條款。
+
 ## 部署真實行情網站：Cloudflare Workers
 
 需要 Node.js、Cloudflare 帳戶、Cloudflare Workers。
